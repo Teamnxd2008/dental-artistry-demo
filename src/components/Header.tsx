@@ -45,14 +45,31 @@ export function Header() {
       >
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 md:px-8">
           <a href="#top" className="flex items-center gap-2.5" aria-label="Demo Dental Clinics home">
-            <span className="flex size-10 items-center justify-center rounded-2xl bg-gradient-to-br from-navy to-navy-soft text-cyan shadow-soft">
+            <span
+              className={cn(
+                "flex size-10 items-center justify-center rounded-2xl text-cyan shadow-soft",
+                scrolled ? "bg-gradient-to-br from-navy to-navy-soft" : "border border-white/15 bg-white/10",
+              )}
+            >
               <Sparkles className="size-5" />
             </span>
             <span className="leading-tight">
-              <span className="block font-display text-sm font-extrabold tracking-tight text-navy">
+              <span
+                className={cn(
+                  "block font-display text-sm font-extrabold tracking-tight",
+                  scrolled ? "text-navy" : "text-white",
+                )}
+              >
                 DEMO DENTAL
               </span>
-              <span className="block text-[10px] font-semibold tracking-[0.24em] text-navy/50">CLINICS</span>
+              <span
+                className={cn(
+                  "block text-[10px] font-semibold tracking-[0.24em]",
+                  scrolled ? "text-navy/50" : "text-white/55",
+                )}
+              >
+                CLINICS
+              </span>
             </span>
           </a>
 
@@ -61,7 +78,12 @@ export function Header() {
               <button
                 key={item.id}
                 onClick={() => go(item.id)}
-                className="rounded-full px-4 py-2 text-sm font-medium text-navy/75 transition hover:bg-navy/5 hover:text-navy"
+                className={cn(
+                  "rounded-full px-4 py-2 text-sm font-medium transition",
+                  scrolled
+                    ? "text-navy/75 hover:bg-navy/5 hover:text-navy"
+                    : "text-white/75 hover:bg-white/10 hover:text-white",
+                )}
               >
                 {item.label}
               </button>
@@ -69,20 +91,36 @@ export function Header() {
           </nav>
 
           <div className="ml-auto flex items-center gap-2">
-            <span className="hidden rounded-full bg-navy/5 px-3 py-1.5 text-xs font-medium text-navy/60 xl:inline">
+            <span
+              className={cn(
+                "hidden rounded-full px-3 py-1.5 text-xs font-medium xl:inline",
+                scrolled ? "bg-navy/5 text-navy/60" : "bg-white/10 text-white/70",
+              )}
+            >
               📍 New York, NY | EN
             </span>
-            <LinkButton href={CLINIC.phoneHref} variant="ghost" className="hidden md:inline-flex">
+            <LinkButton
+              href={CLINIC.phoneHref}
+              variant="ghost"
+              className={cn("hidden md:inline-flex", !scrolled && "text-white hover:bg-white/10")}
+            >
               <Phone className="size-4" /> {CLINIC.phone}
             </LinkButton>
-            <Button onClick={() => openBooking()} className="hidden sm:inline-flex">
+            <Button
+              onClick={() => openBooking()}
+              variant={scrolled ? "primary" : "cyan"}
+              className="hidden sm:inline-flex"
+            >
               Book Free Consultation
             </Button>
             <button
               onClick={() => setMenuOpen((v) => !v)}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
-              className="rounded-full border border-navy/10 bg-white/70 p-2.5 text-navy lg:hidden"
+              className={cn(
+                "rounded-full border p-2.5 lg:hidden",
+                scrolled ? "border-navy/10 bg-white/70 text-navy" : "border-white/20 bg-white/10 text-white",
+              )}
             >
               {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
             </button>
