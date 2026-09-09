@@ -1,24 +1,50 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { BookingProvider } from "@/components/booking-context";
+import { BookingModal } from "@/components/BookingModal";
+import { Header, MobileDock } from "@/components/Header";
+import { Hero } from "@/components/Hero";
+import { Services } from "@/components/Services";
+import { Technology } from "@/components/Technology";
+import { BeforeAfter } from "@/components/BeforeAfter";
+import { Testimonials } from "@/components/Testimonials";
+import { SmileQuiz } from "@/components/SmileQuiz";
+import { FAQ } from "@/components/FAQ";
+import { Footer } from "@/components/Footer";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+const title = "Demo Dental Clinics — Advanced Digital Dentistry in New York";
+const description =
+  "Same-day crowns, guided implants, Invisalign and painless laser dentistry in Midtown Manhattan. Book a free 3D scan consultation today.";
+
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <BookingProvider>
+      <Header />
+      <main>
+        <Hero />
+        <Services />
+        <Technology />
+        <BeforeAfter />
+        <Testimonials />
+        <SmileQuiz />
+        <FAQ />
+      </main>
+      <Footer />
+      <MobileDock />
+      <BookingModal />
+    </BookingProvider>
   );
 }
